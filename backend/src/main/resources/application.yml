@@ -12,7 +12,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -23,17 +23,6 @@ spring:
         jdbc.batch_size: 20
         order_inserts: true
         format_sql: true
-  #  jpa:
-  #    open-in-view: true
-  #    hibernate:
-  #      ddl-auto: update
-  #      naming:
-  #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-  #      use-new-id-generator-mappings: false
-  #    show-sql: true
-  #    properties:
-  #      hibernate.format_sql: true
-  #      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -45,8 +34,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 376505397432-j8ic0nqg20iteq6rst945u6vto89pptu.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             scope:
               - email
               - profile

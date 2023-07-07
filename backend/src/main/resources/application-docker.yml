@@ -8,7 +8,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -19,17 +19,6 @@ spring:
         jdbc.batch_size: 20
         order_inserts: true
         format_sql: true
-  #  jpa:
-  #    open-in-view: true
-  #    hibernate:
-  #      ddl-auto: update
-  #      naming:
-  #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-  #      use-new-id-generator-mappings: false
-  #    show-sql: true
-  #    properties:
-  #      hibernate.format_sql: true
-  #      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -48,15 +37,15 @@ spring:
               - profile
 
           facebook:
-            client-id: ${FACEBOOK_CLIENT_ID}
-            client-secret: ${FACEBOOK_CLIENT_SECRET}
+            client-id: 236093505939220
+            client-secret: 376287e582849eb13c692a6611a36cbe
             scope:
               - email
               - public_profile
 
           naver:
-            client-id: ${NAVER_CLIENT_ID}
-            client-secret: ${NAVER_CLIENT_SECRET}
+            client-id: XpnBEneAHLi5yug35HZh
+            client-secret: Kemg8bMpRT
             scope:
               - email
               - name
@@ -67,8 +56,8 @@ spring:
             redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
 
           kakao:
-            client-id: ${KAKAO_CLIENT_ID}
-            client-secret: ${KAKAO_CLIENT_SECRET}
+            client-id: 81a04e923cd64112cd7c7cc7c3e16fd1
+            client-secret: ZoBarNjbUr3H73nWq8eUzcSseozA78co
             #            redirect-uri: http://localhost:7072/login/oauth2/code/kakao
             redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
