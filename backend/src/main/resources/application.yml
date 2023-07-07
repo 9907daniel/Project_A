@@ -1,4 +1,3 @@
-
 spring:
   profiles:
     active: docker
@@ -24,17 +23,17 @@ spring:
         jdbc.batch_size: 20
         order_inserts: true
         format_sql: true
-#  jpa:
-#    open-in-view: true
-#    hibernate:
-#      ddl-auto: update
-#      naming:
-#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-#      use-new-id-generator-mappings: false
-#    show-sql: true
-#    properties:
-#      hibernate.format_sql: true
-#      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+  #  jpa:
+  #    open-in-view: true
+  #    hibernate:
+  #      ddl-auto: update
+  #      naming:
+  #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  #      use-new-id-generator-mappings: false
+  #    show-sql: true
+  #    properties:
+  #      hibernate.format_sql: true
+  #      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -46,8 +45,8 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
+            client-id: 376505397432-j8ic0nqg20iteq6rst945u6vto89pptu.apps.googleusercontent.com
+            client-secret: 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
             scope:
               - email
               - profile
@@ -68,14 +67,13 @@ spring:
               - profile_name
             client-name: Naver
             authorization-grant-type: authorization_code
-#            redirect-uri: http://localhost:7072/login/oauth2/code/naver
+            #            redirect-uri: http://localhost:7072/login/oauth2/code/naver
             redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
-
 
           kakao:
             client-id: ${KAKAO_CLIENT_ID}
             client-secret: ${KAKAO_CLIENT_SECRET}
-#            redirect-uri: http://localhost:7072/login/oauth2/code/kakao
+            #            redirect-uri: http://localhost:7072/login/oauth2/code/kakao
             redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
             client-authentication-method: POST
@@ -83,7 +81,7 @@ spring:
             scope:
               - profile_nickname
               - account_email
-#  http://localhost:8080/oauth2/authorization/{provider-id}?redirect_uri=http://localhost:3000/oauth/redirect
+        #  http://localhost:8080/oauth2/authorization/{provider-id}?redirect_uri=http://localhost:3000/oauth/redirect
 
         provider:
           naver:
@@ -106,13 +104,13 @@ server:
 
 # cors 설정
 cors:
-  allowed-origins: 'http://localhost:3000'
+  allowed-origins: "http://localhost:3000"
   allowed-methods: GET,POST,PUT,DELETE,OPTIONS
-  allowed-headers: '*'
+  allowed-headers: "*"
   max-age: 3600
 
 # jwt secret key 설정
-jwt.secret: '8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds'
+jwt.secret: "8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds"
 
 # 토큰 관련 secret Key 및 RedirectUri 설정
 app:
@@ -123,8 +121,6 @@ app:
   oauth2:
     authorizedRedirectUris:
       - http://localhost:3000/oauth/redirect
-
-
 #spring:
 ##  profiles:
 ##    active: docker
