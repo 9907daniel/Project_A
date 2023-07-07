@@ -116,9 +116,3 @@ app:
   oauth2:
     authorizedRedirectUris:
       - http://localhost:3000/oauth/redirect
-#logging:
-#  level:
-#    org.hibernate.SQL: debug
-#
-#server:
-#  port: 7072
