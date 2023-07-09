@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import java.security.Key;
 import java.util.Date;
 
+// 토큰 정의
 @Slf4j
 @RequiredArgsConstructor
 public class AuthToken {
@@ -29,6 +30,8 @@ public class AuthToken {
         this.token = createAuthToken(id, role, expiry);
     }
 
+    // 주어진 ID + 유효날짜를 활용해 JWT토큰 생성
+
     private String createAuthToken(String id, Date expiry) {
         return Jwts.builder()
                 .setSubject(id)
@@ -46,6 +49,7 @@ public class AuthToken {
                 .compact();
     }
 
+    // 토큰 유효 확인
     public boolean validate() {
         return this.getTokenClaims() != null;
     }

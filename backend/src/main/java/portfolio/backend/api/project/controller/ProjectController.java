@@ -5,6 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 //import portfolio.backend.api.auth.entity.SiteUser;
@@ -17,6 +19,7 @@ import portfolio.backend.api.project.exception.ResourceNotFoundException; // Imp
 import portfolio.backend.authentication.api.entity.user.User;
 import portfolio.backend.authentication.api.repository.user.UserRepository;
 import portfolio.backend.authentication.api.service.UserService;
+import portfolio.backend.authentication.config.properties.AppProperties;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,29 +63,32 @@ public class ProjectController {
 
 
     // 새로운 프로젝트 POST
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public Project createProject(Principal principal, // Principal 활용해서 현재 로그인 유저 가져오기
-                                 @RequestParam String projectName,
-                                 @RequestParam String creatorArtCategory,
-                                 @RequestParam(defaultValue="0") Long liked,
-                                 @RequestParam(defaultValue="Unknown") String location,
-                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate deadline,
-                                 @RequestParam List<String> requiredCategory,
-                                 @RequestParam(defaultValue = "true") Boolean swipeAlgorithm,
-                                 @RequestParam(defaultValue = "None") String image,
-                                 @RequestParam String description,
-                                 @RequestParam(defaultValue = "true") Boolean ongoingStatus,
-                                 @RequestParam(defaultValue = "both") String remoteStatus,
-                                 @RequestParam(defaultValue = "0") List<Long> requiredPeople,
-                                 @RequestParam(defaultValue = "0") Long participantId) {
+    public Project createProject(
+            @RequestParam String projectName,
+            @RequestParam String creatorArtCategory,
+            @RequestParam(defaultValue="0") Long liked,
+            @RequestParam(defaultValue="Unknown") String location,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate deadline,
+            @RequestParam List<String> requiredCategory,
+            @RequestParam(defaultValue = "true") Boolean swipeAlgorithm,
+            @RequestParam(defaultValue = "None") String image,
+            @RequestParam String description,
+            @RequestParam(defaultValue = "true") Boolean ongoingStatus,
+            @RequestParam(defaultValue = "both") String remoteStatus,
+            @RequestParam(defaultValue = "0") List<Long> requiredPeople,
+            @RequestParam(defaultValue = "0") Long participantId,
+            Authentication authentication) {
 
 //        if (principal == null) {
 //            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You must be logged in to create an artist.");
 //        }
 //        SiteUser siteUser = this.userService.getUser(principal.getName());
 
-        User user = this.userService.getUser(principal.getName());
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userService.getUser(principal.getUsername());
 //        Long userId = siteUser.getUserId();
         Project project = new Project();
 

@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUserId(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Can not find username.");
+            throw new UsernameNotFoundException("username을 찾을 수 없습니다.");
         }
         return UserPrincipal.create(user);
     }

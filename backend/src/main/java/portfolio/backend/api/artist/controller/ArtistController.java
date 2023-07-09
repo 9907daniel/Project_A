@@ -3,14 +3,12 @@ package portfolio.backend.api.artist.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import portfolio.backend.api.artist.entity.Artist;
 import portfolio.backend.api.artist.repository.ArtistRepostiroy;
-//import portfolio.backend.api.auth.entity.SiteUser;
-//import portfolio.backend.api.auth.repository.UserRepository;
-//import portfolio.backend.api.auth.service.UserService;
-import portfolio.backend.api.project.entity.Project;
 import portfolio.backend.authentication.api.entity.user.User;
 import portfolio.backend.authentication.api.repository.user.UserRepository;
 import portfolio.backend.authentication.api.service.UserService;
@@ -24,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/artists")
+//@RequiredArgsConstructor
 public class ArtistController {
     private final ArtistRepostiroy artistRepository;
     private final UserRepository userRepository;
@@ -51,14 +50,11 @@ public class ArtistController {
                                                @RequestParam(value = "interestCategory", required = false) String interestCategory,
                                                @RequestParam(value = "snsLink", required = false) String snsLink,
                                                @RequestParam(value = "birthdate", required = false) String birthdate,
-                                               Principal principal) {
+                                               Authentication authentication) {
 
-        if (principal == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You must be logged in to create an artist.");
-        }
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-//        SiteUser siteUser = this.userService.getUser(principal.getName());
-        User user = this.userService.getUser(principal.getName());
+        User user = userService.getUser(principal.getUsername());
 
         try {
             Artist artist = new Artist();

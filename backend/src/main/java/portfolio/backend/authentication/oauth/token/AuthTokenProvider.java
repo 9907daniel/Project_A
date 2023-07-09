@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+// 인증 토큰을 만들어주고 인증 확인해주는 클래스
 @Slf4j
 public class AuthTokenProvider {
 
@@ -26,6 +27,7 @@ public class AuthTokenProvider {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
+    // ID, 만료날짜, 역할이 들어간 토큰을 만들어준다
     public AuthToken createAuthToken(String id, Date expiry) {
         return new AuthToken(id, expiry, key);
     }
@@ -34,10 +36,12 @@ public class AuthTokenProvider {
         return new AuthToken(id, role, expiry, key);
     }
 
+    // 만들어진 토큰 -> AuthToken 객체로 변환
     public AuthToken convertAuthToken(String token) {
         return new AuthToken(token, key);
     }
 
+    // Authentication을 만들기 위해 AuthToken정보를 가져오고 확인한다
     public Authentication getAuthentication(AuthToken authToken) {
 
         if(authToken.validate()) {

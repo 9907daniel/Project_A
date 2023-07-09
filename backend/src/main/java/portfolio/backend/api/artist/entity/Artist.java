@@ -47,11 +47,6 @@ public class Artist {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthdate;
 
-
-    /////////////////////////////////////
-    //////// GETTER AND SETTER //////////
-    /////////////////////////////////////
-
     public void setUser(User user) {
         this.user = user;
     }

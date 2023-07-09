@@ -63,6 +63,8 @@ docker compose up -d
 # 중단
 docker compose down
 
+# 주기적으로 사용하지 않는 image들 제거하기
+docker image prune
 
 ######################################
 ### docker compose 없이 개별 실행 필요시 ###
